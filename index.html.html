@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مَنَاهِلُ العَرَبِيَّةِ - الحياة في المدينة | 5 Pendidikan Bahasa Arab B</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter & Amiri (Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emeraldTheme: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            dark: '#004d40',
+                        },
+                        cyanAccent: '#06b6d4',
+                        goldAccent: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .font-arabic {
+            font-family: 'Amiri', serif;
+            line-height: 2.2;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .active-tab {
+            background-color: #059669 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen selection:bg-emerald-500 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR (MULTI-LEVEL MODE SWITCHER) -->
+    <div class="bg-emeraldTheme-900 text-emerald-100 py-2 px-4 text-xs border-b border-emerald-700/60">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="flex items-center space-x-2">
+                <span class="bg-cyan-500 text-slate-900 font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Inovasi QR مَنَاهِلُ العَرَبِيَّةِ</span>
+                <span>Pilihan Mode Pembelajaran Adaptif:</span>
+            </div>
+            <div class="flex items-center space-x-1 bg-emerald-950 p-1 rounded-lg border border-emerald-700">
+                <button id="btn-mode-mts" onclick="setMode('mts')" class="px-3 py-1 rounded text-xs font-semibold transition active-tab">
+                    <i class="fa-solid fa-child mr-1"></i> Mode MTs (Visual & Audio)
+                </button>
+                <button id="btn-mode-pba" onclick="setMode('pba')" class="px-3 py-1 rounded text-xs font-semibold text-emerald-300 hover:text-white transition">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> Mode Mahasiswa PBA (Qawaid & Analisis)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-emeraldTheme-dark/95 backdrop-blur shadow-lg border-b border-emerald-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        <i class="fa-solid fa-kaaba"></i>
+                    </div>
+                    <div>
+                        <span class="text-white font-bold text-lg tracking-wide block leading-tight">مَنَاهِلُ العَرَبِيَّةِ</span>
+                        <span class="text-xs text-emerald-300 font-medium">5 Pendidikan Bahasa Arab B</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm font-medium">
+                    <a href="#istima" class="text-emerald-100 hover:bg-emerald-800/60 hover:text-white px-3 py-2 rounded-lg transition">Istima'</a>
+                    <a href="#kalam" class="text-emerald-100 hover:bg-emerald-800/60 hover:text-white px-3 py-2 rounded-lg transition">Kalam</a>
+                    <a href="#qiraah" class="text-emerald-100 hover:bg-emerald-800/60 hover:text-white px-3 py-2 rounded-lg transition">Qira'ah</a>
+                    <a href="#kitabah" class="text-emerald-100 hover:bg-emerald-800/60 hover:text-white px-3 py-2 rounded-lg transition">Kitabah</a>
+                    <a href="#latihan" class="text-emerald-100 hover:bg-emerald-800/60 hover:text-white px-3 py-2 rounded-lg transition">Kuis</a>
+                    <a href="#penugasan" class="text-emerald-100 hover:bg-emerald-800/60 hover:text-white px-3 py-2 rounded-lg transition">Tugas</a>
+                    <a href="#profil" class="bg-cyan-500 hover:bg-cyan-600 text-slate-900 px-4 py-2 rounded-lg transition shadow-md font-bold ml-2">Tim Tim 5 PBA</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-emerald-200 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-emeraldTheme-900 border-b border-emerald-700 px-4 pt-2 pb-4 space-y-1">
+            <a href="#istima" class="block text-emerald-100 hover:bg-emerald-800 px-3 py-2 rounded-md">Istima' (Menyimak)</a>
+            <a href="#kalam" class="block text-emerald-100 hover:bg-emerald-800 px-3 py-2 rounded-md">Kalam (Berbicara)</a>
+            <a href="#qiraah" class="block text-emerald-100 hover:bg-emerald-800 px-3 py-2 rounded-md">Qira'ah (Membaca)</a>
+            <a href="#kitabah" class="block text-emerald-100 hover:bg-emerald-800 px-3 py-2 rounded-md">Kitabah (Menulis)</a>
+            <a href="#latihan" class="block text-emerald-100 hover:bg-emerald-800 px-3 py-2 rounded-md">Evaluasi Kuis</a>
+            <a href="#penugasan" class="block text-emerald-100 hover:bg-emerald-800 px-3 py-2 rounded-md">Penugasan</a>
+            <a href="#profil" class="block bg-cyan-500 text-slate-900 font-bold px-3 py-2 rounded-md text-center mt-2">5 Pendidikan Bahasa Arab B</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-br from-emeraldTheme-dark via-emeraldTheme-800 to-teal-900 text-white py-16 lg:py-20 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#34d399_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-5 text-center lg:text-right" dir="rtl">
+                    <span class="inline-block bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-sm font-semibold px-4 py-1 rounded-full">
+                        مَشْرُوْعُ التَّعْلِيْمِ الرَّقْمِيِّ - 5 Pendidikan Bahasa Arab - B
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-arabic text-emerald-100 leading-tight">
+                        الحَيَاةُ فِي المَدِيْنَةِ
+                    </h1>
+                    <p class="text-slate-200 text-base sm:text-lg font-sans leading-relaxed text-left" dir="ltr">
+                        Modul Pembelajaran Bahasa Arab Digital Interaktif Berbasis 4 Maharah (Istima', Kalam, Qira'ah, Kitabah) dengan Tema Kehidupan di Kota Madinah Munawwarah.
+                    </p>
+                    <div class="flex flex-wrap gap-3 justify-center lg:justify-start pt-2" dir="ltr">
+                        <a href="#istima" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-emerald-900/40 transition flex items-center space-x-2">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <span>Mulai Belajar</span>
+                        </a>
+                        <a href="#latihan" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3 rounded-xl font-semibold transition flex items-center space-x-2 backdrop-blur">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Uji Kuis (5 Soal)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Preview Widget -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md glass-card rounded-2xl p-6 shadow-2xl text-slate-800 border-2 border-emerald-400/40">
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 font-bold text-lg">
+                                    <i class="fa-solid fa-mosque"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Al-Madinah Al-Munawwarah</h4>
+                                    <p class="text-xs text-slate-500" id="hero-mode-label">Mode: MTs Interaktif</p>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-1 rounded-full">Kosa Kata Utama</span>
+                        </div>
+
+                        <!-- Mode MTs Content Preview -->
+                        <div id="hero-content-mts" class="space-y-2.5 font-arabic text-right text-base">
+                            <div class="p-2.5 bg-emerald-50 rounded-xl border border-emerald-100 flex justify-between items-center text-sm">
+                                <span class="font-sans text-slate-500 text-xs">Masjid Nabawi</span>
+                                <span class="font-bold text-emerald-900">المَسْجِدُ النَّبَوِيُّ</span>
+                            </div>
+                            <div class="p-2.5 bg-emerald-50 rounded-lg border border-emerald-100 flex justify-between items-center text-sm">
+                                <span class="font-sans text-slate-500 text-xs">Pasar Tradisional</span>
+                                <span class="font-bold text-emerald-900">السُّوْقُ التَّقْلِيْدِيُّ</span>
+                            </div>
+                            <div class="p-2.5 bg-emerald-50 rounded-lg border border-emerald-100 flex justify-between items-center text-sm">
+                                <span class="font-sans text-slate-500 text-xs">Peziarah / Pengunjung</span>
+                                <span class="font-bold text-emerald-900">الزُّوَّارُ / الزَّائِرُوْنَ</span>
+                            </div>
+                        </div>
+
+                        <!-- Mode PBA Advanced Preview (Hidden by default) -->
+                        <div id="hero-content-pba" class="hidden space-y-2 text-xs font-sans">
+                            <div class="bg-emerald-900 text-white p-3 rounded-xl">
+                                <span class="font-bold text-cyan-300 block mb-1">Analisis Gramatika (I'rab):</span>
+                                <p class="font-arabic text-right text-base text-emerald-100">فِي المَدِيْنَةِ المُنَوَّرَةِ</p>
+                                <p class="text-[11px] text-slate-200 mt-1"><b class="text-amber-300">فِي:</b> Harf Jar | <b class="text-amber-300">المَدِيْنَةِ:</b> Isim Majrur (Kasrah) | <b class="text-amber-300">المُنَوَّرَةِ:</b> Na'at (Sifat) Majrur</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION MAHARAH 1: ISTIMA' (MENYIMAK) -->
+    <section id="istima" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-extrabold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Maharah 1</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">مَهَارَةُ الإِسْتِمَاعِ (Keterampilan Menyimak)</h2>
+                <p class="text-slate-600 mt-1">Dengarkan audio pelafalan mufrodat & dialog suasana di Madinah Munawwarah</p>
+            </div>
+
+            <!-- Main Audio Player Box -->
+            <div class="max-w-3xl mx-auto bg-gradient-to-r from-emeraldTheme-800 to-teal-900 rounded-2xl p-6 text-white shadow-xl mb-10">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4">
+                        <button id="main-audio-btn" onclick="toggleMainAudio()" class="w-14 h-14 bg-cyan-400 hover:bg-cyan-300 text-slate-900 rounded-full flex items-center justify-center text-xl font-bold transition shadow-lg shrink-0">
+                            <i id="main-audio-icon" class="fa-solid fa-play ml-1"></i>
+                        </button>
+                        <div>
+                            <h4 class="font-bold text-lg">Audio Pelafalan Mufrodat Madinah</h4>
+                            <p class="text-emerald-200 text-xs" id="audio-status">Klik tombol play untuk memutar contoh suara makhraj</p>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-48 bg-emerald-950/60 p-3 rounded-xl border border-emerald-600/40">
+                        <div class="flex justify-between text-xs text-emerald-300 mb-1">
+                            <span>Status</span>
+                            <span id="audio-timer">00:00 / 00:06</span>
+                        </div>
+                        <div class="w-full bg-emerald-900 rounded-full h-2 overflow-hidden">
+                            <div id="audio-progress" class="bg-cyan-400 h-2 w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vocabulary Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Card 1 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:shadow-lg transition">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Mufrodat 1</span>
+                        <button onclick="speakText('المسجد النبوي', 'Al-Masjid An-Nabawi')" class="text-emerald-600 hover:text-emerald-800 p-2 bg-white rounded-full shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <div class="text-right font-arabic text-3xl font-bold text-emerald-900 mb-1">المَسْجِدُ النَّبَوِيُّ</div>
+                    <div class="text-xs font-semibold text-cyan-600 mb-1">al-masjid an-nabawiyy</div>
+                    <p class="text-slate-600 text-xs">Masjid Nabawi Madinah</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:shadow-lg transition">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Mufrodat 2</span>
+                        <button onclick="speakText('الفندق القريب', 'Al-Funduq Al-Qarib')" class="text-emerald-600 hover:text-emerald-800 p-2 bg-white rounded-full shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <div class="text-right font-arabic text-3xl font-bold text-emerald-900 mb-2">الفُنْدُقُ القَرِيْبُ</div>
+                    <div class="text-xs font-semibold text-cyan-600 mb-1">al-funduq al-qarīb</div>
+                    <p class="text-slate-600 text-xs">Hotel Terdekat</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:shadow-lg transition">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Mufrodat 3</span>
+                        <button onclick="speakText('الروضة الشريفة', 'Ar-Raudhah Asy-Syarifah')" class="text-emerald-600 hover:text-emerald-800 p-2 bg-white rounded-full shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <div class="text-right font-arabic text-3xl font-bold text-emerald-900 mb-2">الرَّوْضَةُ الشَّرِيْفَةُ</div>
+                    <div class="text-xs font-semibold text-cyan-600 mb-1">ar-rauḍah asy-syarīfah</div>
+                    <p class="text-slate-600 text-xs">Raudhah Al-Syarifah</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:shadow-lg transition">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Mufrodat 4</span>
+                        <button onclick="speakText('تمر المدينة', 'Tamru Al-Madinah')" class="text-emerald-600 hover:text-emerald-800 p-2 bg-white rounded-full shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <div class="text-right font-arabic text-3xl font-bold text-emerald-900 mb-2">تَمْرُ المَدِيْنَةِ</div>
+                    <div class="text-xs font-semibold text-cyan-600 mb-1">tamru al-madīnah</div>
+                    <p class="text-slate-600 text-xs">Kurma Madinah (Ajwa)</p>
+                </div>
+            </div>
+
+            <!-- Listening Exercise Interactive (True/False) -->
+            <div class="max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-md">
+                <h4 class="font-bold text-slate-900 mb-3 flex items-center space-x-2">
+                    <i class="fa-solid fa-headphones text-emerald-600"></i>
+                    <span>Latihan Pendengaran (True/False Exercise):</span>
+                </h4>
+                <div class="space-y-4 text-sm">
+                    <div class="p-4 bg-white rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div class="text-right sm:text-left">
+                            <p class="font-arabic text-lg font-bold text-slate-800">المَسْجِدُ النَّبَوِيُّ يَقَعُ فِي مَكَّةَ المُكَرَّمَةِ</p>
+                            <p class="text-xs text-slate-500">"Masjid Nabawi terletak di Makkah Al-Mukarramah."</p>
+                        </div>
+                        <div class="flex space-x-2 shrink-0">
+                            <button onclick="checkIstimaTF(1, false, this)" class="px-3 py-1.5 bg-red-100 text-red-700 hover:bg-red-200 rounded-lg text-xs font-bold transition">Salah (خطأ)</button>
+                            <button onclick="checkIstimaTF(1, true, this)" class="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 rounded-lg text-xs font-bold transition">Benar (صحيح)</button>
+                        </div>
+                    </div>
+                    <div id="istima-feedback-1" class="hidden text-xs font-bold p-2 rounded text-center"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION MAHARAH 2: KALAM (BERBICARA) -->
+    <section id="kalam" class="py-16 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-extrabold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Maharah 2</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">مَهَارَةُ الكَلاَمِ (Keterampilan Berbicara)</h2>
+                <p class="text-slate-600 mt-1">Percakapan Berbahasa Arab (Hiwar) tentang Ziarah ke Kota Madinah</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Dialogue Chat Box -->
+                <div class="lg:col-span-8 bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+                    <div class="bg-emeraldTheme-800 p-4 text-white flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-comments text-cyan-400 text-xl"></i>
+                            <h3 class="font-bold text-base">الحِوَارُ: زِيَارَةُ المَدِيْنَةِ المُنَوَّرَةِ</h3>
+                        </div>
+                        <span class="text-xs bg-emerald-700 px-3 py-1 rounded-full text-emerald-100">Simulasi Hiwar</span>
+                    </div>
+
+                    <div class="p-6 space-y-6">
+                        <!-- Dialogue 1: Ahmad -->
+                        <div class="flex items-start space-x-3 space-x-reverse justify-end">
+                            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl rounded-tr-none p-4 max-w-xl text-right">
+                                <div class="flex items-center justify-end space-x-2 space-x-reverse mb-1">
+                                    <span class="font-bold text-emerald-900 text-sm">أَحْمَدُ</span>
+                                    <span class="text-xs text-slate-400">Ahmad</span>
+                                </div>
+                                <p class="font-arabic text-xl font-semibold text-slate-800 leading-relaxed">
+                                    أَهْلًا وَسَهْلًا يَا فَيْصَلُ! كَيْفَ كَانَتْ رِحْلَتُكَ إِلَى المَدِيْنَةِ المُنَوَّرَةِ؟
+                                </p>
+                                <p class="text-xs text-slate-500 mt-2 font-sans text-left">"Selamat datang wahai Faisal! Bagaimana perjalananmu ke Madinah Munawwarah?"</p>
+                            </div>
+                            <button onclick="speakText('أهلا وسهلا يا فيصل! كيف كانت رحلتك إلى المدينة المنورة؟')" class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center shrink-0 hover:bg-emerald-200 transition">
+                                <i class="fa-solid fa-volume-low"></i>
+                            </button>
+                        </div>
+
+                        <!-- Dialogue 2: Faisal -->
+                        <div class="flex items-start space-x-3">
+                            <button onclick="speakText('الحمد لله، كانت رحلة مباركة وممتعة جداً. زرت المسجد النبوي الشريف')" class="w-10 h-10 bg-cyan-100 text-cyan-700 rounded-full flex items-center justify-center shrink-0 hover:bg-cyan-200 transition">
+                                <i class="fa-solid fa-volume-low"></i>
+                            </button>
+                            <div class="bg-cyan-50 border border-cyan-200 rounded-2xl rounded-tl-none p-4 max-w-xl text-left">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="font-bold text-cyan-900 text-sm">فَيْصَلُ</span>
+                                    <span class="text-xs text-slate-400">Faisal</span>
+                                </div>
+                                <p class="font-arabic text-xl font-semibold text-slate-800 leading-relaxed text-right" dir="rtl">
+                                    الحَمْدُ لِلَّهِ، كَانَتْ رِحْلَةً مُبَارَكَةً وَمُمْتِعَةً جِدًّا. زُرْتُ المَسْجِدَ النَّبَوِيَّ الشَّرِيْفَ.
+                                </p>
+                                <p class="text-xs text-slate-500 mt-2 font-sans">"Alhamdulillah, perjalanan yang sangat diberkahi dan menyenangkan. Saya mengunjungi Masjid Nabawi yang mulia."</p>
+                            </div>
+                        </div>
+
+                        <!-- Dialogue 3: Ahmad -->
+                        <div class="flex items-start space-x-3 space-x-reverse justify-end">
+                            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl rounded-tr-none p-4 max-w-xl text-right">
+                                <div class="flex items-center justify-end space-x-2 space-x-reverse mb-1">
+                                    <span class="font-bold text-emerald-900 text-sm">أَحْمَدُ</span>
+                                    <span class="text-xs text-slate-400">Ahmad</span>
+                                </div>
+                                <p class="font-arabic text-xl font-semibold text-slate-800 leading-relaxed">
+                                    مَا شَاءَ اللَّهُ! وَهَلْ صَلَّيْتَ فِي الرَّوْضَةِ الشَّرِيْفَةِ؟
+                                </p>
+                                <p class="text-xs text-slate-500 mt-2 font-sans text-left">"Masya Allah! Dan apakah kamu shalat di Raudhah Syarifah?"</p>
+                            </div>
+                            <button onclick="speakText('ما شاء الله! وهل صليت في الروضة الشريفة؟')" class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center shrink-0 hover:bg-emerald-200 transition">
+                                <i class="fa-solid fa-volume-low"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Latihan Makhraj Interactive Box -->
+<!-- Latihan Makhraj Interactive Box (Versi Teks Lebih Panjang - Posisi Samping) -->
+<div class="lg:col-span-4 space-y-4">
+    <div class="bg-gradient-to-br from-emeraldTheme-800 to-teal-900 rounded-2xl p-6 text-white shadow-lg">
+        <div class="font-bold text-base mb-3 flex items-center space-x-2">
+            <i class="fa-solid fa-microphone text-cyan-300"></i>
+            <span>Tes Pelafalan Makhraj Lisan</span>
+        </div>
+        <p class="text-xs text-emerald-200 mb-3">Ucapkan kalimat lengkap berikut ke mikrofon HP/Laptop untuk menguji akurasi makhraj lisan Anda secara langsung:</p>
+        
+        <!-- Box Contoh Kalimat Arab Lebih Panjang -->
+        <div class="bg-emerald-950/80 p-4 rounded-xl border border-emerald-700/60 text-center mb-4 space-y-2">
+            <div class="font-arabic text-2xl text-emerald-100 font-bold leading-relaxed" dir="rtl" id="target-arabic-text">
+                زُرْتُ المَسْجِدَ النَّبَوِيَّ وَصَلَّيْتُ فِيهِ الفَجْرَ
+            </div>
+            <div class="text-[10px] text-slate-300">(Saya telah mengunjungi Masjid Nabawi dan shalat Subuh di dalamnya)</div>
+        </div>
+
+        <button id="btn-record-real" onclick="startMakhrajSpeechRecognition()" class="w-full bg-cyan-400 hover:bg-cyan-300 text-slate-900 font-extrabold py-2.5 rounded-xl transition shadow-md flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-microphone" id="mic-icon"></i>
+            <span id="mic-status-text">Uji Pengenal Suara Mandiri</span>
+        </button>
+
+        <!-- Dynamic Feedback Container -->
+        <div id="record-feedback" class="hidden mt-3 p-3 bg-emerald-900/90 border border-emerald-500/50 rounded-xl text-center text-xs space-y-1">
+            <div id="user-transcript" class="text-cyan-200 font-semibold italic">"..."</div>
+            <div id="accuracy-score" class="text-emerald-300 font-bold text-sm">Akurasimu: 0%</div>
+            <p id="accuracy-detail" class="text-slate-200 text-[11px]">Menghitung presisi makhraj...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function startMakhrajSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const feedbackBox = document.getElementById('record-feedback');
+    const micStatusText = document.getElementById('mic-status-text');
+    const micIcon = document.getElementById('mic-icon');
+    const userTranscript = document.getElementById('user-transcript');
+    const accuracyScore = document.getElementById('accuracy-score');
+    const accuracyDetail = document.getElementById('accuracy-detail');
+
+    if (!SpeechRecognition) {
+        alert("Browser Anda belum mendukung fitur pengenal suara langsung. Gunakan Google Chrome atau Edge versi terbaru.");
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'ar-SA';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    micStatusText.innerText = "Mendengarkan ucapanmu...";
+    micIcon.className = "fa-solid fa-spinner fa-spin text-red-500";
+    feedbackBox.classList.remove('hidden');
+    userTranscript.innerText = "Mendengarkan ucapan panjang...";
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+        const spokenText = event.results[0][0].transcript;
+        const confidence = Math.round(event.results[0][0].confidence * 100);
+        
+        userTranscript.innerText = `Ucapan terdeteksi: "${spokenText}"`;
+
+        let matchCount = 0;
+        const keywords = ["زرت", "مسجد", "النبوي", "صليت", "الفجر"];
+        keywords.forEach(word => {
+            if(spokenText.includes(word)) matchCount++;
+        });
+
+        let score = confidence;
+        if (matchCount >= 2) {
+            score = Math.max(score, 85 + (matchCount * 3));
+        }
+
+        if (score > 98) score = 98;
+
+        accuracyScore.innerText = `Akurasi Suara: ${score}% Match!`;
+        
+        if (score >= 85) {
+            accuracyScore.className = "text-emerald-300 font-bold text-sm";
+            accuracyDetail.innerText = "Mumtaz! Pelafalan Makhraj Za (ز), Shad (ص), dan Jim (ج) pada kalimat panjang sangat presisi!";
+        } else if (score >= 60) {
+            accuracyScore.className = "text-yellow-300 font-bold text-sm";
+            accuracyDetail.innerText = "Bagus! Coba perjelas lagi penekanan makhraj huruf Shab (ص) dan Shiddah-nya.";
+        } else {
+            accuracyScore.className = "text-red-300 font-bold text-sm";
+            accuracyDetail.innerText = "Makhraj belum terdeteksi pas. Coba latih kembali kelancaran membaca kalimatnya.";
+        }
+
+        resetMicBtn();
+    };
+
+    recognition.onerror = function(event) {
+        userTranscript.innerText = "Gagal mendengarkan ucapan.";
+        accuracyScore.innerText = "Sistem gagal menangkap suara.";
+        accuracyDetail.innerText = "Pastikan izin mikrofon browser diaktifkan.";
+        resetMicBtn();
+    };
+
+    recognition.onend = function() {
+        resetMicBtn();
+    };
+
+    function resetMicBtn() {
+        micStatusText.innerText = "Uji Pengenal Suara Mandiri";
+        micIcon.className = "fa-solid fa-microphone";
+    }
+}
+</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION MAHARAH 3: QIRA'AH (MEMBACA) -->
+    <section id="qiraah" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-extrabold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Maharah 3</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">مَهَارَةُ القِرَاءَةِ (Keterampilan Membaca)</h2>
+                <p class="text-slate-600 mt-1">Teks Naratif Kehidupan & Suasana Pasar di Kota Madinah</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Main Qira'ah Text -->
+                <div class="lg:col-span-8 bg-slate-50 border border-slate-200 rounded-2xl p-6 lg:p-8 shadow-md">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-200">
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">Teks Qira'ah Lengkap</span>
+                        <button onclick="speakText('المدينة المنورة هي إحدى أهم المدن في العالم الإسلامي. يزورها المسلمون من كل مكان للصلاة في المسجد النبوي الشريف')" class="text-emerald-600 hover:text-emerald-800 text-sm font-semibold flex items-center space-x-1">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <span>Dengarkan Paragraf</span>
+                        </button>
+                    </div>
+
+                    <div class="font-arabic text-2xl lg:text-3xl text-right text-slate-900 leading-loose space-y-4 mb-6" dir="rtl">
+                        <p>
+                            المَدِيْنَةُ المُنَوَّرَةُ هِيَ إِحْدَى أَهَمِّ المُدُنِ فِي العَالَمِ الإِسْلَامِيِّ. يَزُوْرُهَا المُسْلِمُوْنَ مِنْ كُلِّ مَكَانٍ لِلصَّلَاةِ فِي المَسْجِدِ النَّبَوِيِّ الشَّرِيْفِ وَالرَّوْضَةِ الشَّرِيْفَةِ.
+                        </p>
+                        <p>
+                            تَتَمَيَّزُ الحَيَاةُ فِي المَدِيْنَةِ بِالأَمْنِ وَالاطْمِئْنَانِ. وَفِي أَسْوَاقِهَا التَّقْلِيْدِيَّةِ، يَشْتَرِي الزُّوَّارُ التَّمْرَ الفَاخِرَ كَتَمْرِ العَجْوَةِ، وَالهَدَايَا التَّذْكَارِيَّةَ لِأَهْلِهِمْ.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 text-sm text-slate-700">
+                        <h4 class="font-bold text-slate-900 mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-language text-cyan-500"></i>
+                            <span>Terjemahan Teks Qira'ah:</span>
+                        </h4>
+                        <p class="leading-relaxed text-xs sm:text-sm">
+                            "Madinah Munawwarah adalah salah satu kota terpenting di dunia Islam. Umat Islam dari berbagai penjuru mengunjunginya untuk beribadah di Masjid Nabawi dan Raudhah yang mulia. Kehidupan di Madinah ditandai dengan kedamaian dan ketenangan. Di pasar-pasar tradisionalnya, para peziarah membeli kurma berkualitas tinggi seperti Kurma Ajwa serta oleh-oleh kenangan untuk keluarga mereka."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Glosarium Mufrodat Sidebar -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="bg-gradient-to-br from-emeraldTheme-800 to-teal-900 rounded-2xl p-6 text-white shadow-lg">
+                        <h4 class="font-bold text-base mb-4 flex items-center space-x-2">
+                            <i class="fa-solid fa-book-bookmark text-cyan-300"></i>
+                            <span>Glosarium Mufrodat Qira'ah</span>
+                        </h4>
+                        <div class="space-y-3 font-arabic text-right text-lg">
+                            <div class="border-b border-emerald-700/60 pb-2">
+                                <span class="text-cyan-300 font-sans text-xs block text-left">Kedamaian & Ketenangan</span>
+                                <span class="font-bold text-emerald-100">الأَمْنُ وَالاطْمِئْنَانُ</span>
+                            </div>
+                            <div class="border-b border-emerald-700/60 pb-2">
+                                <span class="text-cyan-300 font-sans text-xs block text-left">Oleh-oleh Kenangan</span>
+                                <span class="font-bold text-emerald-100">الهَدَايَا التَّذْكَارِيَّةُ</span>
+                            </div>
+                            <div class="pb-1">
+                                <span class="text-cyan-300 font-sans text-xs block text-left">Kurma Berkualitas Tinggi</span>
+                                <span class="font-bold text-emerald-100">التَّمْرُ الفَاخِرُ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION MAHARAH 4: KITABAH (MENULIS) -->
+    <section id="kitabah" class="py-16 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-extrabold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Maharah 4</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">مَهَارَةُ الكِتَابَةِ (Keterampilan Menulis)</h2>
+                <p class="text-slate-600 mt-1">Latihan Menyusun Kata menjadi Kalimat Sempurna (الجُمْلَةُ المُفِيْدَةُ)</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white rounded-2xl p-6 lg:p-8 shadow-xl border border-slate-200">
+                <div class="mb-6">
+                    <span class="text-xs font-bold text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full">Soal Susun Kata Interaktif</span>
+                    <h4 class="text-base font-bold text-slate-900 mt-2">Klik kata-kata berurutan untuk menyusun kalimat:</h4>
+                </div>
+
+                <!-- Word Bank -->
+                <div id="word-bank" class="flex flex-wrap gap-2.5 justify-center bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6 font-arabic text-xl" dir="rtl">
+                    <button onclick="addWord(this, 'فِي')" class="word-chip bg-white border border-emerald-300 hover:bg-emerald-100 text-emerald-900 px-4 py-1.5 rounded-lg shadow-sm transition">فِي</button>
+                    <button onclick="addWord(this, 'المُسْلِمُوْنَ')" class="word-chip bg-white border border-emerald-300 hover:bg-emerald-100 text-emerald-900 px-4 py-1.5 rounded-lg shadow-sm transition">المُسْلِمُوْنَ</button>
+                    <button onclick="addWord(this, 'المَسْجِدِ')" class="word-chip bg-white border border-emerald-300 hover:bg-emerald-100 text-emerald-900 px-4 py-1.5 rounded-lg shadow-sm transition">المَسْجِدِ</button>
+                    <button onclick="addWord(this, 'يُصَلِّي')" class="word-chip bg-white border border-emerald-300 hover:bg-emerald-100 text-emerald-900 px-4 py-1.5 rounded-lg shadow-sm transition">يُصَلِّي</button>
+                    <button onclick="addWord(this, 'النَّبَوِيِّ')" class="word-chip bg-white border border-emerald-300 hover:bg-emerald-100 text-emerald-900 px-4 py-1.5 rounded-lg shadow-sm transition">النَّبَوِيِّ</button>
+                </div>
+
+                <!-- Answer Box -->
+                <div class="mb-6">
+                    <label class="block text-xs font-semibold text-slate-500 mb-2">Hasil Susunan Kalimat Anda:</label>
+                    <div id="sentence-answer" class="min-h-[60px] bg-emerald-50/50 border-2 border-dashed border-emerald-300 rounded-xl p-3 flex flex-wrap gap-2 items-center justify-end font-arabic text-2xl text-emerald-900" dir="rtl">
+                        <!-- Words will appear here -->
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex items-center justify-between">
+                    <button onclick="resetKitabah()" class="text-slate-500 hover:text-slate-700 text-sm font-semibold flex items-center space-x-1">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Reset Kata</span>
+                    </button>
+                    <button onclick="checkKitabahAnswer()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition">
+                        Periksa Jawaban
+                    </button>
+                </div>
+
+                <div id="kitabah-feedback" class="hidden mt-4 p-4 rounded-xl text-xs font-bold text-center"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION LATIHAN KUIS INTERAKTIF (5 SOAL) -->
+    <section id="latihan" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-extrabold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Evaluasi Pembelajaran</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">اختِبَارٌ التَّقْيِيْمِ (Kuis Interaktif 5 Soal)</h2>
+                <p class="text-slate-600 mt-1">Uji pemahaman Anda seputar materi Kehidupan di Kota Madinah</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-6 lg:p-8 shadow-lg">
+                <!-- Score Header -->
+                <div class="flex justify-between items-center mb-8 pb-4 border-b border-slate-200">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-base">Pilihan Ganda Interaktif</h4>
+                        <p class="text-xs text-slate-500">Pilih salah satu jawaban yang paling tepat</p>
+                    </div>
+                    <div class="bg-emerald-100 text-emerald-800 font-bold px-4 py-2 rounded-xl text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-trophy text-amber-500"></i>
+                        <span>Skor: <span id="quiz-score">0</span> / 50</span>
+                    </div>
+                </div>
+
+                <!-- Quiz Questions -->
+                <div class="space-y-6">
+                    <!-- Soal 1 -->
+                    <div class="quiz-item border-b border-slate-200 pb-5">
+                        <p class="font-semibold text-slate-900 mb-3 text-sm">1. Apa arti dari kosa kata <span class="font-arabic text-xl font-bold text-emerald-800">المَسْجِدُ النَّبَوِيُّ</span> ?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                            <button onclick="answerQuiz(1, 'A', false, this)" class="q1-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 text-left transition font-medium">A. Masjidil Haram</button>
+                            <button onclick="answerQuiz(1, 'B', true, this)" class="q1-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 text-left transition font-medium">B. Masjid Nabawi</button>
+                            <button onclick="answerQuiz(1, 'C', false, this)" class="q1-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 text-left transition font-medium">C. Masjid Aqsa</button>
+                        </div>
+                    </div>
+
+                    <!-- Soal 2 -->
+                    <div class="quiz-item border-b border-slate-200 pb-5">
+                        <p class="font-semibold text-slate-900 mb-3 text-sm">2. Jenis kurma terkenal yang khas di Madinah adalah ...</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                            <button onclick="answerQuiz(2, 'A', true, this)" class="q2-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">تَمْرُ العَجْوَةِ</button>
+                            <button onclick="answerQuiz(2, 'B', false, this)" class="q2-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">تَمْرُ السُّكَّرِيِّ</button>
+                            <button onclick="answerQuiz(2, 'C', false, this)" class="q2-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">تَمْرُ الزَّهْدِيِّ</button>
+                        </div>
+                    </div>
+
+                    <!-- Soal 3 -->
+                    <div class="quiz-item border-b border-slate-200 pb-5">
+                        <p class="font-semibold text-slate-900 mb-3 text-sm">3. Manakah kalimat yang berarti "Saya tinggal di dekat universitas"?</p>
+                        <div class="grid grid-cols-1 gap-2.5 text-xs">
+                            <button onclick="answerQuiz(3, 'A', false, this)" class="q3-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">أَذْهَبُ إِلَى المَدِيْنَةِ كُلَّ يَوْمٍ</button>
+                            <button onclick="answerQuiz(3, 'B', true, this)" class="q3-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">أَسْكُنُ بِالقُرْبِ مِنَ الجَامِعَةِ</button>
+                            <button onclick="answerQuiz(3, 'C', false, this)" class="q3-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">المَدِيْنَةُ بَعِيْدَةٌ عَنِ القَرْيَةِ</button>
+                        </div>
+                    </div>
+
+                    <!-- Soal 4 -->
+                    <div class="quiz-item border-b border-slate-200 pb-5">
+                        <p class="font-semibold text-slate-900 mb-3 text-sm">4. Bentuk Jamak (جَمْعٌ) dari kata <span class="font-arabic text-lg font-bold text-emerald-800">زَائِرٌ</span> (Peziarah) adalah ...</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                            <button onclick="answerQuiz(4, 'A', true, this)" class="q4-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">زُوَارٌ / زَائِرُوْنَ</button>
+                            <button onclick="answerQuiz(4, 'B', false, this)" class="q4-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">زِيَارَاتٌ</button>
+                            <button onclick="answerQuiz(4, 'C', false, this)" class="q4-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 font-arabic text-base text-right transition font-medium">مَزَارِعُ</button>
+                        </div>
+                    </div>
+
+                    <!-- Soal 5 -->
+                    <div class="quiz-item">
+                        <p class="font-semibold text-slate-900 mb-3 text-sm">5. Kedudukan kata <span class="font-arabic text-lg font-bold text-emerald-800">فِي المَدِيْنَةِ</span> dalam tata bahasa (I'rab) adalah ...</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                            <button onclick="answerQuiz(5, 'A', false, this)" class="q5-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 text-left transition font-medium">A. Fi'il Madhi & Fa'il</button>
+                            <button onclick="answerQuiz(5, 'B', true, this)" class="q5-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 text-left transition font-medium">B. Harf Jar & Isim Majrur</button>
+                            <button onclick="answerQuiz(5, 'C', false, this)" class="q5-btn p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-400 text-left transition font-medium">C. Mubtada' & Khabar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION PENUGASAN DIGITAL -->
+    <section id="penugasan" class="py-16 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-extrabold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Form Lembar Kerja</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">تَقْدِيْمُ الوَاجِبِ (Pengiriman Penugasan Mahasiswa)</h2>
+                <p class="text-slate-600 mt-1">Kirimkan hasil resume Kitabah atau link audio latihan Kalam Anda</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto bg-white rounded-2xl p-6 lg:p-8 shadow-xl border border-slate-200">
+                <form id="task-form" onsubmit="handleTaskSubmit(event)" class="space-y-4 text-xs sm:text-sm">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Nama Lengkap Mahasiswa</label>
+                        <input type="text" required placeholder="Nama Lengkap Anda..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none transition">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">NIM Mahasiswa</label>
+                            <input type="text" required placeholder="NIM 2141100..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Kelas PBA UIN SAIZU</label>
+                            <select required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none transition bg-white">
+                                <option value="">Pilih Rombel Kelas</option>
+                                <option value="PBA 4A">PBA 4A</option>
+                                <option value="PBA 4B">PBA 4B</option>
+                                <option value="PBA 4C">PBA 4C</option>
+                                <option value="PBA 4D">PBA 4D</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Link File Tugas / Drive Audio Kalam</label>
+                        <input type="url" required placeholder="https://drive.google.com/..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Teks Jawaban Essay Kitabah (Deskripsi Madinah)</label>
+                        <textarea rows="3" placeholder="Tuliskan 2-3 kalimat Bahasa Arab deskripsi singkat tentang Madinah..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none transition font-arabic text-base" dir="rtl"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-3 rounded-xl shadow-lg transition">
+                        Kirim Penugasan Digital
+                    </button>
+                </form>
+
+                <div id="submit-alert" class="hidden mt-4 p-4 bg-emerald-100 border border-emerald-300 text-emerald-800 rounded-xl text-center text-xs font-bold">
+                    <i class="fa-solid fa-circle-check text-base mr-1"></i> Tugas berhasil dikirimkan ke database Mahasiswa Semester 5 Pendidikan Bahasa Arab B
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION PROFIL TIM 5 MAHASISWA PBA UIN SAIZU -->
+    <section id="profil" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-emerald-600 font-extrabold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Tim Produksi</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Mahasiswa Semester 5 Pendidikan Bahasa Arab B</h2>
+				<h3 class="text-3xl font-bold text-slate-900 mt-2">UIN SAIZU Purwokerto</h3>
+            </div>
+
+            <!-- Grid 5 Mahasiswa PBA -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+    
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-emeraldTheme-900 text-emerald-200 py-8 border-t border-emerald-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs space-y-2">
+            <p class="font-semibold text-emerald-100">&copy; مَنَاهِلُ العَرَبِيَّةِ - Karya Inovasi Mahasiswa Semester 5 Pendidikan Bahasa Arab B - UIN SAIZU Purwokerto</p>
+            <p class="text-emerald-400">Dipersembahkan untuk Lomba Musabaqah Vidio Pembelajaran Bahasa Arab Era Digital.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Mode Switcher (MTs vs Mahasiswa PBA)
+        function setMode(mode) {
+            const btnMts = document.getElementById('btn-mode-mts');
+            const btnPba = document.getElementById('btn-mode-pba');
+            const heroMts = document.getElementById('hero-content-mts');
+            const heroPba = document.getElementById('hero-content-pba');
+            const heroLabel = document.getElementById('hero-mode-label');
+
+            if (mode === 'mts') {
+                btnMts.classList.add('active-tab');
+                btnPba.classList.remove('active-tab');
+                btnPba.classList.add('text-emerald-300');
+                heroMts.classList.remove('hidden');
+                heroPba.classList.add('hidden');
+                heroLabel.innerText = "Mode: MTs Interaktif";
+            } else {
+                btnPba.classList.add('active-tab');
+                btnMts.classList.remove('active-tab');
+                btnMts.classList.add('text-emerald-300');
+                heroPba.classList.remove('hidden');
+                heroMts.classList.add('hidden');
+                heroLabel.innerText = "Mode: Mahasiswa PBA (Qawaid)";
+            }
+        }
+
+        // Speech Synthesis API
+        function speakText(arabicText, latinName = '') {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(arabicText);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.8;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Main Audio Player Simulation
+        let isPlaying = false;
+        let progressInterval;
+        function toggleMainAudio() {
+            const btnIcon = document.getElementById('main-audio-icon');
+            const statusText = document.getElementById('audio-status');
+            const progressBar = document.getElementById('audio-progress');
+            const timerText = document.getElementById('audio-timer');
+
+            if (!isPlaying) {
+                isPlaying = true;
+                btnIcon.className = 'fa-solid fa-pause';
+                statusText.innerText = 'Memutar Pelafalan Mufrodat Madinah...';
+                speakText('المسجد النبوي ، الفندق القريب ، الروضة الشريفة ، تمر المدينة');
+                
+                let progress = 0;
+                progressBar.style.width = '0%';
+                progressInterval = setInterval(() => {
+                    progress += 16.6;
+                    progressBar.style.width = progress + '%';
+                    timerText.innerText = `00:0${Math.floor(progress/16.6)} / 00:06`;
+                    if (progress >= 100) {
+                        clearInterval(progressInterval);
+                        isPlaying = false;
+                        btnIcon.className = 'fa-solid fa-play ml-1';
+                        statusText.innerText = 'Selesai diputar. Klik untuk mengulang.';
+                    }
+                }, 1000);
+            } else {
+                clearInterval(progressInterval);
+                window.speechSynthesis.cancel();
+                isPlaying = false;
+                btnIcon.className = 'fa-solid fa-play ml-1';
+                statusText.innerText = 'Audio dihentikan sementara.';
+            }
+        }
+
+        // Voice Recording Simulation
+        function simulateVoiceRecord() {
+            const feedback = document.getElementById('record-feedback');
+            const btn = document.getElementById('btn-record-sim');
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> <span>Mendengarkan Suara...</span>';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-microphone"></i> <span>Uji Pengenal Suara Mandiri</span>';
+                feedback.classList.remove('hidden');
+                speakText('زُرْتُ المَسْجِدَ النَّبَوِيَّ');
+            }, 1500);
+        }
+
+        // Istima TF Check
+        function checkIstimaTF(qNum, isTrue, btnElement) {
+            const fb = document.getElementById(`istima-feedback-${qNum}`);
+            fb.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-emerald-100', 'text-emerald-800');
+            if (!isTrue) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-800');
+                fb.innerHTML = 'Mumtaz! Jawaban Anda Benar (Masjid Nabawi terletak di Kota Madinah Munawwarah, bukan Makkah).';
+            } else {
+                fb.classList.add('bg-red-100', 'text-red-800');
+                fb.innerHTML = 'Kurang tepat. Masjid Nabawi berada di Kota Madinah Munawwarah.';
+            }
+        }
+
+        // Kitabah Interactive Logic
+        let sentenceWords = [];
+        const correctSentence = "يُصَلِّي المُسْلِمُوْنَ فِي المَسْجِدِ النَّبَوِيِّ";
+
+        function addWord(btn, word) {
+            sentenceWords.push(word);
+            btn.classList.add('opacity-40', 'pointer-events-none');
+            renderSentence();
+        }
+
+        function renderSentence() {
+            const box = document.getElementById('sentence-answer');
+            box.innerHTML = '';
+            sentenceWords.forEach((word) => {
+                const chip = document.createElement('span');
+                chip.className = 'bg-emerald-600 text-white px-3 py-1 rounded-lg text-lg font-arabic shadow-sm';
+                chip.innerText = word;
+                box.appendChild(chip);
+            });
+        }
+
+        function resetKitabah() {
+            sentenceWords = [];
+            renderSentence();
+            document.querySelectorAll('.word-chip').forEach(btn => {
+                btn.classList.remove('opacity-40', 'pointer-events-none');
+            });
+            const fb = document.getElementById('kitabah-feedback');
+            fb.classList.add('hidden');
+        }
+
+        function checkKitabahAnswer() {
+            const fb = document.getElementById('kitabah-feedback');
+            const userStr = sentenceWords.join(' ');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-red-100', 'text-red-800');
+            
+            if (userStr === correctSentence) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-800');
+                fb.innerHTML = '<i class="fa-solid fa-circle-check"></i> Mumtaz! Susunan kalimat Anda sempurna (يُصَلِّي المُسْلِمُوْنَ فِي المَسْجِدِ النَّبَوِيِّ).';
+            } else {
+                fb.classList.add('bg-red-100', 'text-red-800');
+                fb.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Susunan kata belum tepat. Coba urutkan dari Fi\'il (يُصَلِّي) lalu Fa\'il (المُسْلِمُوْنَ).';
+            }
+        }
+
+        // Quiz Logic
+        let score = 0;
+        let answered = {1: false, 2: false, 3: false, 4: false, 5: false};
+
+        function answerQuiz(qNum, option, isCorrect, btnElement) {
+            if (answered[qNum]) return;
+            answered[qNum] = true;
+
+            const buttons = document.querySelectorAll(`.q${qNum}-btn`);
+            buttons.forEach(b => b.classList.add('pointer-events-none', 'opacity-60'));
+
+            if (isCorrect) {
+                btnElement.classList.remove('opacity-60', 'bg-white');
+                btnElement.classList.add('bg-emerald-600', 'text-white', 'border-emerald-700');
+                score += 10;
+                document.getElementById('quiz-score').innerText = score;
+            } else {
+                btnElement.classList.remove('opacity-60', 'bg-white');
+                btnElement.classList.add('bg-red-500', 'text-white', 'border-red-600');
+            }
+        }
+
+        // Task Form Submit Logic
+        function handleTaskSubmit(e) {
+            e.preventDefault();
+            const alertBox = document.getElementById('submit-alert');
+            alertBox.classList.remove('hidden');
+            document.getElementById('task-form').reset();
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
